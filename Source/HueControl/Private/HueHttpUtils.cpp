@@ -4,7 +4,7 @@ void FHueHttpUtils::Send(
     const FString& URL,
     const FString& Verb,
     const FString& Content,
-    FHttpRequestCompleteDelegate Callback
+    const FHttpRequestCompleteDelegate& Callback
 )
 {
     FHttpModule* Http = &FHttpModule::Get();

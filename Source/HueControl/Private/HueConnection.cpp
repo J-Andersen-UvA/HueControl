@@ -3,7 +3,7 @@
 
 void UHueConnection::Initialize(FSubsystemCollectionBase& Collection)
 {
-    BridgeIP = TEXT("192.168.0.229");
+    BridgeIP = TEXT("");
     UserName = TEXT("");
 }
 
@@ -49,15 +49,12 @@ void UHueConnection::SendRequest(
         Endpoint,
         Verb,
         ContentJson,
-        [](FHttpRequestPtr Req, FHttpResponsePtr Resp, bool bOK)
-        {
-            if (!bOK || !Resp.IsValid())
+        FHttpRequestCompleteDelegate::CreateLambda(
+            [](FHttpRequestPtr Req, FHttpResponsePtr Resp, bool bOK)
             {
-                UE_LOG(LogTemp, Warning, TEXT("Hue request failed"));
-                return;
+                if (!bOK || !Resp.IsValid())
+                    UE_LOG(LogTemp, Warning, TEXT("Hue request failed"));
             }
-
-            UE_LOG(LogTemp, Log, TEXT("Hue response: %s"), *Resp->GetContentAsString());
-        }
+        )
     );
 }

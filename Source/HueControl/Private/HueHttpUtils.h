@@ -10,6 +10,6 @@ public:
         const FString& URL,
         const FString& Verb,
         const FString& Content,
-        FHttpRequestCompleteDelegate Callback
+        const FHttpRequestCompleteDelegate& Callback
     );
 };

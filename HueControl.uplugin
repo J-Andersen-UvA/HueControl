@@ -8,7 +8,8 @@
     "Modules": [
         {
             "Name": "HueControl",
-            "Type": "Editor"
+            "Type": "Runtime",
+            "LoadingPhase": "Default"
         }
     ]
 }
