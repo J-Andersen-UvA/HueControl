@@ -1,0 +1,14 @@
+﻿{
+    "FileVersion": 3,
+    "Version": 1,
+    "VersionName": "1.0",
+    "FriendlyName": "HueControl",
+    "Description": "HueControl plugin",
+    "Category": "Custom",
+    "Modules": [
+        {
+            "Name": "HueControl",
+            "Type": "Editor"
+        }
+    ]
+}
