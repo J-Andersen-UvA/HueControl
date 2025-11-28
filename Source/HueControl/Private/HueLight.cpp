@@ -3,12 +3,28 @@
 
 void FHueLight::Send(const FString& JSON) const
 {
+    // Guard against invalid light data
+    if (BridgeIP.IsEmpty() || UserName.IsEmpty() || LightID.IsEmpty())
+    {
+        UE_LOG(LogTemp, Error,
+            TEXT("HueLight::Send() aborted � invalid data: IP='%s' User='%s' ID='%s'"),
+            *BridgeIP, *UserName, *LightID);
+        return;
+    }
+
     const FString URL = FString::Printf(
         TEXT("http://%s/api/%s/lights/%s/state"),
         *BridgeIP,
         *UserName,
         *LightID
     );
+
+    // Guard against malformed URL
+    if (!URL.StartsWith(TEXT("http://")) || URL.Contains(TEXT("///")))
+    {
+        UE_LOG(LogTemp, Error, TEXT("HueLight::Send() aborted � malformed URL: %s"), *URL);
+        return;
+    }
 
     FHueHttpUtils::Send(
         URL,
@@ -22,6 +38,8 @@ void FHueLight::Send(const FString& JSON) const
             }
         )
     );
+
+    UE_LOG(LogTemp, Log, TEXT("HueLight::Send() sent to %s: %s"), *URL, *JSON);
 }
 
 void FHueLight::TurnOn() const

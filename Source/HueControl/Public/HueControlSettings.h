@@ -23,6 +23,9 @@ public:
     UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Connection")
     FString UserName;
 
+    UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Connection")
+    FString GroupName;
+
     UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "General")
     bool bAutoApplyOnStartup;
 };

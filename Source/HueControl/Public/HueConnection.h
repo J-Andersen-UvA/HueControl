@@ -19,6 +19,9 @@ public:
     UFUNCTION(BlueprintCallable, Category="Hue")
     void SetBridgeIP(const FString& InIP);
 
+    UFUNCTION(BlueprintCallable, Category = "Hue")
+    void SetGroupName(const FString& InGroupName);
+
     UFUNCTION(BlueprintCallable, Category="Hue")
     void CheckConnection();
 
@@ -28,9 +31,13 @@ public:
     UFUNCTION(BlueprintCallable, Category="Hue")
     void GetAllDevices();
 
+    UFUNCTION(BlueprintCallable, Category = "Hue")
+    void GetAllDevicesForRegisteredGroup();
+
 private:
     FString BridgeIP;
     FString UserName;
+    FString GroupName;
 
     void SendRequest(
         const FString& Endpoint,

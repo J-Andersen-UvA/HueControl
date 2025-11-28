@@ -5,6 +5,7 @@ void UHueConnection::Initialize(FSubsystemCollectionBase& Collection)
 {
     BridgeIP = TEXT("");
     UserName = TEXT("");
+    GroupName = TEXT("");
 }
 
 void UHueConnection::Deinitialize()
@@ -19,6 +20,11 @@ void UHueConnection::SetUserName(const FString& InUserName)
 void UHueConnection::SetBridgeIP(const FString& InIP)
 {
     BridgeIP = InIP;
+}
+
+void UHueConnection::SetGroupName(const FString& InGroupName)
+{
+    GroupName = InGroupName;
 }
 
 void UHueConnection::CheckConnection()
@@ -36,6 +42,12 @@ void UHueConnection::GetAllLights()
 void UHueConnection::GetAllDevices()
 {
     const FString Endpoint = FString::Printf(TEXT("http://%s/api/%s"), *BridgeIP, *UserName);
+    SendRequest(Endpoint, TEXT("GET"));
+}
+
+void UHueConnection::GetAllDevicesForRegisteredGroup()
+{
+    const FString Endpoint = FString::Printf(TEXT("http://%s/api/%s/groups/%s"), *BridgeIP, *UserName, *GroupName);
     SendRequest(Endpoint, TEXT("GET"));
 }
 

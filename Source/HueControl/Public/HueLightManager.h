@@ -25,6 +25,10 @@ public:
         FHttpRequestPtr Request,
         FHttpResponsePtr Response,
         bool bConnectedSuccessfully);
+    void OnGroupLightsReceived(FHttpRequestPtr Request,
+        FHttpResponsePtr Response,
+        bool bConnectedSuccessfully);
+    void RequestAllLights();
 
     UFUNCTION(BlueprintCallable, Category="Hue")
     UHueLightObject* GetLight(const FString& LightID);
@@ -42,5 +46,10 @@ public:
     FString UserName;
 
 private:
+    // Mark UProperty so the lights dont get Garbage Collected
+    UPROPERTY()
     TMap<FString, UHueLightObject*> Lights;
+
+    UPROPERTY()
+    TSet<FString> AllowedLightIDs;
 };
